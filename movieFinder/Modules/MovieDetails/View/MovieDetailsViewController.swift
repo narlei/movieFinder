@@ -21,7 +21,7 @@ class MovieDetailsViewController: UIViewController {
     
     // MARK: Properties
     
-    var movie:Movie!
+    var presenter: MovieDetailsPresentation!
 
     // MARK: Actions
     
@@ -33,7 +33,18 @@ class MovieDetailsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.presenter.viewDidLoad()
+    }
 
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+}
+
+
+extension MovieDetailsViewController: MovieDetailsView {
+    func showDetails(forMovie movie: Movie) {
         let strUrl = "\(Constants.API.imageBaseUrl)500/\(movie.posterPath!)"
         self.imageViewCover.sd_setImage(with: URL(string:strUrl)) { (image, error, type, url) in
             let imageSized = image!.resizeImage(newWidth: self.view.frame.size.width)
@@ -43,14 +54,22 @@ class MovieDetailsViewController: UIViewController {
         self.labelDescription.text = movie.overview
         
         self.labelAdditional.text = "Lançamento: \(movie.releaseDate.toDateFormat(format: "dd 'de' MMMM 'de' yyyy"))"
+        
+        let arrayGenres = DataManager.shared.uncacheGenres()
+        let array = arrayGenres?.filter({ (genre) -> Bool in
+            if movie.genreIds.contains(genre.id) {
+                return true
+            }
+            return false
+        })
+        
+        let genres = array?.map({ (genre) -> String in
+            return genre.name
+        })
+        let strGenres = genres?.joined(separator: ",") ?? ""
+        self.labelAdditional.text = "\(self.labelAdditional.text!)\n\nGeneros: \(strGenres)"
+        
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-   
-
-
+    
+    
 }

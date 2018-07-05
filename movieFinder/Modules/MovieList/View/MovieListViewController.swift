@@ -13,7 +13,15 @@ class MovieListViewController: UIViewController {
     // MARK: Outlets
     
     @IBOutlet weak var tableViewMovies: UITableView!
-    var arrayMovies = [Movie]()
+    
+    // MARK: Properties
+    
+    var presenter:MovieListPresentation!
+    var arrayMovies:[Movie] = [] {
+        didSet {
+            self.tableViewMovies.reloadData()
+        }
+    }
     
     
     // MARK: Methods
@@ -21,27 +29,13 @@ class MovieListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupView()
+        self.presenter.viewDidLoad()
     }
     
-    func setupView() {
+    fileprivate func setupView() {
         self.tableViewMovies.delegate = self
         self.tableViewMovies.dataSource = self
         self.tableViewMovies.register(UINib(nibName: "MovieListCell", bundle: nil), forCellReuseIdentifier: "cellMovie")
-        self.loadData()
-    }
-    
-    func loadData(){
-        DataManager.shared.getMovies(page: 1) { (result) in
-            switch result {
-            case .success(let movies):
-                self.arrayMovies = movies
-                self.tableViewMovies.reloadData()
-            case .failure(let error):
-                print(error.localizedDescription)
-            case .emtpy:
-                print("vazio")
-            }
-        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -49,14 +43,32 @@ class MovieListViewController: UIViewController {
     }
 }
 
+extension MovieListViewController: MovieListView {
+    func showNoContentScreen() {
+    
+    }
+    
+    func showMoviesData(_ movies: [Movie]) {
+        self.arrayMovies = movies
+    }
+    
+    func showSearchBar() {
+    
+    }
+    
+    func hideSearchBar() {
+    
+    }
+    
+    
+}
+
 extension MovieListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableViewMovies.deselectRow(at: indexPath, animated: true)
         
-        let viewController = UIStoryboard(name: "MovieDetails", bundle: nil).instantiateInitialViewController() as! MovieDetailsViewController
         let movie = self.arrayMovies[indexPath.row]
-        viewController.movie = movie
-        self.present(viewController, animated: true, completion: nil)
+        self.presenter.didSelectMovie(movie: movie)
     }
 }
 

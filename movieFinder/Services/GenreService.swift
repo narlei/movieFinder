@@ -19,7 +19,7 @@ extension GenreService: TmdbAPIType {
     var task: Task {
         switch self {
         case .list(let apiKey, let language):
-            return .requestParameters(parameters: ["api_key": apiKey, "language": language], encoding: JSONEncoding.default)
+            return .requestParameters(parameters: ["api_key": apiKey, "language": language], encoding: URLEncoding.default)
         }
     }
     

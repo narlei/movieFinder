@@ -37,6 +37,7 @@
 		D5DD0BC520EE32D00045B41B /* MovieListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5DD0BC420EE32D00045B41B /* MovieListInteractor.swift */; };
 		D5DD0BC720EE33970045B41B /* MovieListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5DD0BC620EE33970045B41B /* MovieListPresenter.swift */; };
 		D5DD0BC920EE352B0045B41B /* MovieListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5DD0BC820EE352B0045B41B /* MovieListRouter.swift */; };
+		D5DD0BCC20EE60530045B41B /* MovieDetailsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5DD0BCB20EE60530045B41B /* MovieDetailsInteractor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,6 +88,7 @@
 		D5DD0BC420EE32D00045B41B /* MovieListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListInteractor.swift; sourceTree = "<group>"; };
 		D5DD0BC620EE33970045B41B /* MovieListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListPresenter.swift; sourceTree = "<group>"; };
 		D5DD0BC820EE352B0045B41B /* MovieListRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListRouter.swift; sourceTree = "<group>"; };
+		D5DD0BCB20EE60530045B41B /* MovieDetailsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsInteractor.swift; sourceTree = "<group>"; };
 		FFFD3361BDC2D096E39EF525 /* Pods-movieFinder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-movieFinder.release.xcconfig"; path = "Pods/Target Support Files/Pods-movieFinder/Pods-movieFinder.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -164,6 +166,7 @@
 			isa = PBXGroup;
 			children = (
 				D5DD0BB520EE2C790045B41B /* Contract */,
+				D5DD0BCA20EE603D0045B41B /* Interactor */,
 				D5DD0BB320EE2C6D0045B41B /* Presenter */,
 				D5DD0BB120EE2C600045B41B /* Router */,
 				D5DD0BB020EE2C560045B41B /* View */,
@@ -346,6 +349,14 @@
 			path = Contract;
 			sourceTree = "<group>";
 		};
+		D5DD0BCA20EE603D0045B41B /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				D5DD0BCB20EE60530045B41B /* MovieDetailsInteractor.swift */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -493,17 +504,17 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-movieFinder/Pods-movieFinder-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
-				"${BUILT_PRODUCTS_DIR}/R.swift.Library/Rswift.framework",
 				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
+				"${BUILT_PRODUCTS_DIR}/UIScrollView-InfiniteScroll/UIScrollView_InfiniteScroll.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Rswift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UIScrollView_InfiniteScroll.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -531,6 +542,7 @@
 				D5DD0BAF20EDA98B0045B41B /* UIImageExtension.swift in Sources */,
 				D5DD0BB720EE2CB50045B41B /* MovieDetailsContract.swift in Sources */,
 				D5DD0BBB20EE2D910045B41B /* MovieDetailsRouter.swift in Sources */,
+				D5DD0BCC20EE60530045B41B /* MovieDetailsInteractor.swift in Sources */,
 				D59516F820ECDED5007A0855 /* Movie.swift in Sources */,
 				D52D232520EB88B900BE6752 /* AppDelegate.swift in Sources */,
 				D59516FE20ECE170007A0855 /* MovieService.swift in Sources */,
@@ -695,10 +707,7 @@
 				DEVELOPMENT_TEAM = HQKT5G7NHC;
 				INFOPLIST_FILE = movieFinder/Resourses/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.narleimoreira.movieFinder;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -715,10 +724,7 @@
 				DEVELOPMENT_TEAM = HQKT5G7NHC;
 				INFOPLIST_FILE = movieFinder/Resourses/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.narleimoreira.movieFinder;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -735,11 +741,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = HQKT5G7NHC;
 				INFOPLIST_FILE = movieFinderTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.narleimoreira.movieFinderTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -757,11 +759,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = HQKT5G7NHC;
 				INFOPLIST_FILE = movieFinderTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.narleimoreira.movieFinderTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;

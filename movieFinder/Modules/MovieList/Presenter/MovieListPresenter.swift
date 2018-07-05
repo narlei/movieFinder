@@ -13,7 +13,9 @@ class MovieListPresenter: MovieListPresentation {
     var interactor: MovieListUseCase!
     var router: MovieListWireframe!
     
-    var totalPages = 0
+    var currentPage = 0
+    var isSearching = false
+    var searchQuery = ""
     
     var movies:[Movie] = [] {
         didSet {
@@ -22,11 +24,14 @@ class MovieListPresenter: MovieListPresentation {
     }
     
     func viewDidLoad() {
-        self.interactor.fetchMovies(page: 1)
+        self.currentPage = 1
+        self.interactor.fetchMovies(page: self.currentPage)
     }
     
     func reload() {
-        self.interactor.fetchMovies(page: 1)
+        self.currentPage = 1
+        self.isSearching = false
+        self.interactor.fetchMovies(page: self.currentPage)
     }
     
     func didOpenSearchMovie() {
@@ -38,17 +43,33 @@ class MovieListPresenter: MovieListPresentation {
     }
     
     func didSearchMovie(query: String) {
-        self.interactor.fetchMovies(page: 1)
+        self.currentPage = 1
+        self.isSearching = true
+        self.searchQuery = query
+        self.interactor.searchMovie(query: query, page: self.currentPage)
     }
     
     func didSelectMovie(movie: Movie) {
         router.presentDetails(forMovie: movie)
     }
+    
+    func didLoadNexPage() {
+        self.currentPage += 1
+        if self.isSearching {
+            self.interactor.searchMovie(query: self.searchQuery, page: self.currentPage)
+        }else{
+            self.interactor.fetchMovies(page: self.currentPage)
+        }
+    }
 }
 
 extension MovieListPresenter: MovieListInteractorOutput {
     func moviesFetched(movies: [Movie]) {
-        self.movies = movies
+        if self.currentPage > 1 {
+            self.movies.append(contentsOf: movies)
+        }else{
+            self.movies = movies
+        }
     }
     
     func moviesFetchFailed() {

@@ -23,10 +23,13 @@ protocol MovieListPresentation: class {
     var router: MovieListWireframe! { get set }
     
     func viewDidLoad()
-    func reload()
     func didOpenSearchMovie()
     func didCloseSearchMovie()
+    
+    func reload()
     func didSearchMovie(query: String)
+    func didLoadNexPage()
+    
     func didSelectMovie(movie: Movie)
 }
 
@@ -34,6 +37,7 @@ protocol MovieListUseCase: class {
     var output: MovieListInteractorOutput! { get set }
     
     func fetchMovies(page: Int)
+    func searchMovie(query: String, page: Int)
 }
 
 protocol MovieListInteractorOutput: class {

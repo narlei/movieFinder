@@ -10,16 +10,24 @@ import Moya
 
 enum MovieService {
     case list(apiKey:String, language: String, page: Int)
+    case search(apiKey:String, language: String, page: Int, query: String)
 }
 
 extension MovieService: TmdbAPIType {
     var path: String {
-        return "movie/upcoming"
+        switch self {
+        case .list:
+            return "movie/upcoming"
+        case .search:
+            return "search/movie"
+        }
     }
     var task: Task {
         switch self {
         case .list(let apiKey, let language, let page):
             return .requestParameters(parameters: ["api_key": apiKey, "language": language, "page": page], encoding: URLEncoding.default)
+        case .search(let apiKey, let language,let page, let query):
+            return .requestParameters(parameters: ["api_key": apiKey, "language": language, "page": page, "query": query], encoding: URLEncoding.default)
         }
     }
     

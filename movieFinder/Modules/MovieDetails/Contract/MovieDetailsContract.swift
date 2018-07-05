@@ -12,12 +12,25 @@ protocol MovieDetailsView: class {
     var presenter: MovieDetailsPresentation! { get set }
     
     func showDetails(forMovie movie: Movie)
+    func showGenres(genres:[Genre]?)
 }
 
 protocol MovieDetailsPresentation: class {
     var view: MovieDetailsView? { get set }
     
     func viewDidLoad()
+    func loadGenre(movie: Movie)
+}
+
+protocol MovieDetailsUseCase: class {
+    var output: MovieDetailsInteractorOutput! { get set }
+    
+    func fetchGenres()
+}
+
+protocol MovieDetailsInteractorOutput: class {
+    func genresFetched(genres: [Genre])
+    func genresFetchFailed()
 }
 
 protocol MovieDetailsWireframe: class {

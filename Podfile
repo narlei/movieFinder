@@ -5,10 +5,10 @@ target 'movieFinder' do
   use_frameworks!
 
   # Pods for movieFinder
-  
+
   pod 'SDWebImage'
   pod 'Moya'
-  pod 'R.swift'
+  pod 'UIScrollView-InfiniteScroll'
 
   target 'movieFinderTests' do
     inherit! :search_paths

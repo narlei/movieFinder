@@ -22,7 +22,7 @@ class Movie : NSObject, NSCoding{
     var releaseDate : String!
     var title : String!
     var video : Bool!
-    var voteAverage : Int!
+    var voteAverage : Float!
     var voteCount : Int!
     
     
@@ -42,7 +42,11 @@ class Movie : NSObject, NSCoding{
         releaseDate = dictionary["release_date"] as? String
         title = dictionary["title"] as? String
         video = dictionary["video"] as? Bool
-        voteAverage = dictionary["vote_average"] as? Int
+        if let voteAvg = dictionary["vote_average"] as? NSNumber{
+            voteAverage = Float(voteAvg)
+        }else{
+            voteAverage = 0
+        }
         voteCount = dictionary["vote_count"] as? Int
     }
     
@@ -115,7 +119,7 @@ class Movie : NSObject, NSCoding{
         releaseDate = aDecoder.decodeObject(forKey: "release_date") as? String
         title = aDecoder.decodeObject(forKey: "title") as? String
         video = aDecoder.decodeObject(forKey: "video") as? Bool
-        voteAverage = aDecoder.decodeObject(forKey: "vote_average") as? Int
+        voteAverage = aDecoder.decodeObject(forKey: "vote_average") as? Float
         voteCount = aDecoder.decodeObject(forKey: "vote_count") as? Int
         
     }

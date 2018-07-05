@@ -15,30 +15,30 @@ class MovieListCell: UITableViewCell {
     
     @IBOutlet weak var imageViewCover: UIImageView!
     @IBOutlet weak var labelTitle: UILabel!
-    @IBOutlet weak var labelGenre: UILabel!
     @IBOutlet weak var labelRelease: UILabel!
+    @IBOutlet weak var labelVoteStars: UILabel!
+    @IBOutlet weak var labelVoteAvg: UILabel!
     
     
     func initialize(movie:Movie) {
-        let strUrl = "\(Constants.API.imageBaseUrl)200/\(movie.posterPath!)"
-        self.imageViewCover.sd_setImage(with: URL(string:strUrl)) { (image, error, type, url) in
-            
+        if let path = movie.posterPath {
+            let strUrl = "\(Constants.API.imageBaseUrl)200/\(path)"
+            self.imageViewCover.sd_setImage(with: URL(string:strUrl), completed: nil)
+            self.imageViewCover.layer.shadowColor = UIColor.black.cgColor
+            self.imageViewCover.layer.shadowOffset = CGSize(width: 1, height: 1)
+            self.imageViewCover.layer.shadowOpacity = 0.5
+            self.imageViewCover.layer.shadowRadius = 5
         }
         self.labelTitle.text = movie.title
         self.labelRelease.text = "Lançamento: \(movie.releaseDate.toDateFormat(format: "dd 'de' MMMM 'de' yyyy"))"
-        
-        let arrayGenres = DataManager.shared.uncacheGenres()
-        let array = arrayGenres?.filter({ (genre) -> Bool in
-            if movie.genreIds.contains(genre.id) {
-                return true
-            }
-            return false
-        })
-        
-        let genres = array?.map({ (genre) -> String in
-            return genre.name
-        })
-        self.labelGenre.text = genres?.joined(separator: ",")
+        if movie.voteAverage > 0 {
+            self.labelVoteAvg.text = String(movie.voteAverage)
+            let rate = Int(movie.voteAverage)
+            self.labelVoteStars.text = String.init(repeating: "⭐️", count: rate)
+        }else{
+            self.labelVoteAvg.text = ""
+            self.labelVoteStars.text = "Sem avaliações"
+        }
     }
 
     override func awakeFromNib() {

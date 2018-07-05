@@ -31,8 +31,8 @@ Sketch project is inside `design` folder.
 - List movies from [TMDB](http://themoviedb.org/)
 - Show movies details
 - Cache movies offline
+- Peek&Pop to preview
 
 ## To Do
 
-- [ ] Peek&Pop in movie list
 - [ ] More details

@@ -32,6 +32,7 @@ class MovieListPresenter: MovieListPresentation {
         self.currentPage = 1
         self.isSearching = false
         self.interactor.fetchMovies(page: self.currentPage)
+        self.view?.hideSearchBar()
     }
     
     func didOpenSearchMovie() {

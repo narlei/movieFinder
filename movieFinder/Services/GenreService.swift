@@ -23,7 +23,9 @@ extension GenreService: TmdbAPIType {
         }
     }
     
-    var sampleData: Data { return "{}".data(using: String.Encoding.utf8)! }
+    var sampleData: Data {
+        return stubbedResponse(fileName: "Genre")
+    }
 }
 
 extension Response {

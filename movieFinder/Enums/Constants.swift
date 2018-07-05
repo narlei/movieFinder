@@ -16,4 +16,5 @@ enum Constants {
         static let imageBaseUrl = "https://image.tmdb.org/t/p/w"
     }
     
+    static let debugMode = false
 }

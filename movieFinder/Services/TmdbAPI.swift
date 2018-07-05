@@ -25,8 +25,9 @@ final class TmdbAPI {
         let endpointClosure = createEndpointClosure(for: target)
         
         var plugins = [PluginType]()
-        
-        plugins.append(NetworkLoggerPlugin())
+        if Constants.debugMode {
+            plugins.append(NetworkLoggerPlugin())
+        }
         
         return MoyaProvider<T>(endpointClosure: endpointClosure, plugins: plugins)
     }
@@ -35,8 +36,6 @@ final class TmdbAPI {
         let endpointClosure = { (target: T) -> Endpoint in
             let endpoint = MoyaProvider.defaultEndpointMapping(for: target)
             return endpoint
-//            let headers = ["Accept": "application/json"]
-//            return endpoint.adding(newHTTPHeaderFields: headers)
         }
         
         return endpointClosure

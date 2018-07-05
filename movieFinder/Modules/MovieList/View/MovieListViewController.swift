@@ -10,7 +10,7 @@ import UIKit
 import UIScrollView_InfiniteScroll
 
 class MovieListViewController: UIViewController {
-
+    
     // MARK: Outlets
     
     @IBOutlet weak var tableViewMovies: UITableView!
@@ -22,6 +22,7 @@ class MovieListViewController: UIViewController {
     
     // MARK: Properties
     
+    var refreshControl: UIRefreshControl!
     var presenter:MovieListPresentation!
     var arrayMovies:[Movie] = [] {
         didSet {
@@ -44,21 +45,32 @@ class MovieListViewController: UIViewController {
     }
     
     fileprivate func setupView() {
+        // TableView
         self.tableViewMovies.delegate = self
         self.tableViewMovies.dataSource = self
         self.tableViewMovies.register(UINib(nibName: "MovieListCell", bundle: nil), forCellReuseIdentifier: "cellMovie")
-       
+        // RefreshControl
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl.addTarget(self, action: #selector(self.didReload), for: .valueChanged)
+        self.tableViewMovies.addSubview(self.refreshControl)
+        // InfinityScroll
         self.tableViewMovies.infiniteScrollIndicatorStyle = UIActivityIndicatorViewStyle.gray
         self.tableViewMovies.addInfiniteScroll { (tableView) -> Void in
             DispatchQueue.main.async {
                 self.presenter.didLoadNexPage()
             }
         }
-        
+        // SearchBar
         self.tableViewMovies.tableHeaderView = self.searchBar
         self.searchBar.delegate = self
+        // Peek&Pop
+        self.registerForPreviewing(with: self, sourceView: self.tableViewMovies)
     }
-
+    
+    @objc fileprivate func didReload() {
+        self.presenter.reload()
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -69,11 +81,13 @@ class MovieListViewController: UIViewController {
 extension MovieListViewController: MovieListView {
     func showNoContentScreen() {
         self.tableViewMovies.finishInfiniteScroll()
+        self.refreshControl.endRefreshing()
     }
     
     func showMoviesData(_ movies: [Movie]) {
         self.arrayMovies = movies
         self.tableViewMovies.finishInfiniteScroll()
+        self.refreshControl.endRefreshing()
     }
     
     func showSearchBar() {
@@ -124,6 +138,23 @@ extension MovieListViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         self.presenter.didSearchMovie(query: searchBar.text!)
+    }
+}
+
+// MARK: Peek&Pop
+
+extension MovieListViewController: UIViewControllerPreviewingDelegate{
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        if let indexPath = tableViewMovies.indexPathForRow(at: location) {
+            previewingContext.sourceRect = tableViewMovies.rectForRow(at: indexPath)
+            let movie = self.arrayMovies[indexPath.row]
+            return MovieDetailsRouter.assembleModule(movie: movie)
+        }
+        return nil
+    }
+    
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        present(viewControllerToCommit, animated: true, completion: nil)
     }
 }
 

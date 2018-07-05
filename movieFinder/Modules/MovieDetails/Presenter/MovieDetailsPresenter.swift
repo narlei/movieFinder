@@ -16,6 +16,7 @@ class MovieDetailsPresenter : MovieDetailsPresentation {
     
     func viewDidLoad() {
         view?.showDetails(forMovie: movie)
+        self.loadGenre(movie: movie)
     }
     
     func loadGenre(movie: Movie) {

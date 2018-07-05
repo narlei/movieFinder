@@ -20,6 +20,7 @@ class MovieDetailsRouter: MovieDetailsWireframe {
         presenter.view = view
         presenter.interactor = MovieDetailsInteractor()
         presenter.movie = movie
+        presenter.interactor.output = presenter
         
         return view
     }

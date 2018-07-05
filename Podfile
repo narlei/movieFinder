@@ -13,6 +13,7 @@ target 'movieFinder' do
   target 'movieFinderTests' do
     inherit! :search_paths
     # Pods for testing
+    pod 'Moya'
   end
 
 end

@@ -31,7 +31,10 @@ extension MovieService: TmdbAPIType {
         }
     }
     
-    var sampleData: Data { return "{}".data(using: String.Encoding.utf8)! }
+    var sampleData: Data {
+        return stubbedResponse(fileName: "Movie")
+    }
+    
 }
 
 extension Response {

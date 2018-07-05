@@ -33,7 +33,7 @@ class MovieListCell: UITableViewCell {
         self.labelRelease.text = "Lançamento: \(movie.releaseDate.toDateFormat(format: "dd 'de' MMMM 'de' yyyy"))"
         if movie.voteAverage > 0 {
             self.labelVoteAvg.text = String(movie.voteAverage)
-            let rate = Int(movie.voteAverage)
+            let rate = Int(movie.voteAverage / 2)
             self.labelVoteStars.text = String.init(repeating: "⭐️", count: rate)
         }else{
             self.labelVoteAvg.text = ""

@@ -20,6 +20,13 @@ extension TmdbAPIType {
     
     var headers: [String: String]? { return nil }
     
-    var sampleData: Data { return "{}".data(using: String.Encoding.utf8)! }
+    var sampleData: Data {
+        return "{}".data(using: String.Encoding.utf8)!
+    }
+    
+    func stubbedResponse(fileName: String) -> Data! {
+        let path = Bundle.main.path(forResource: fileName, ofType: "json")
+        return try? Data(contentsOf: URL(fileURLWithPath: path!))
+    }
 }
 

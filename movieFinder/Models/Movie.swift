@@ -43,7 +43,7 @@ class Movie : NSObject, NSCoding{
         title = dictionary["title"] as? String
         video = dictionary["video"] as? Bool
         if let voteAvg = dictionary["vote_average"] as? NSNumber{
-            voteAverage = Float(voteAvg)
+            voteAverage = voteAvg.floatValue
         }else{
             voteAverage = 0
         }

@@ -36,3 +36,42 @@ Sketch project is inside `design` folder.
 ## To Do
 
 - [ ] More details
+- [ ] Internacionalization
+- [ ] 100% Test Coverage 
+
+## Plans to internacionalization
+
+### Software: [lokalise.co](https://lokalise.co)
+
+**What?**
+
+1. Upload localization files
+We support all popular iOS, Android and web localization file formats.
+
+2. Translate
+Invite your team to work on translations, or use professional translation services provided by our partners.
+
+3. Integrate
+Use Lokalise iOS and Android SDK, API, CLI tool and other integration options, or simply download the files.
+
+### Library [R.swift](https://github.com/mac-cain13/R.swift)
+
+Easy to use plurals and all internationalization attributes.
+
+*How it works?*
+
+
+````swift
+print(R.string.localizable.yesterday()) // Ontem
+````
+
+
+
+````swift
+print(R.string.localizable.days_ago(format: date.daysAgo)) // 5 dias atrás
+````
+
+````swift
+print(R.string.localizable.like_activity_title(format: activityPost.arrayLikes.count)) // Curtida / Curtidas
+````
+

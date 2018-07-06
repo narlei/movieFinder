@@ -1,4 +1,4 @@
-# movieFinder
+# movieFinder [![Build Status](https://app.bitrise.io/app/347fd33967e0c840/status.svg?token=RAsopG6SVtKzwiMbrIHk9g&branch=develop)](https://app.bitrise.io/app/347fd33967e0c840)
 
 An upcoming movie list to help you to discover movies.
 
